@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+import random
 
 from google.cloud import monitoring
 
@@ -46,8 +47,8 @@ def write_time_series():
     resource = client.resource(
         'gce_instance',
         labels={
-            'instance_id': '1234567890123456789',
-            'zone': 'us-central1-f',
+            'instance_id': '8886818547844874976',
+            'zone': 'us-central1-a',
         }
     )
 
@@ -56,19 +57,30 @@ def write_time_series():
         labels={
         }
     )
-    client.write_point(metric, resource, 3.14)
+    client.write_point(metric, resource, 32910638198436220000.0)
+    # client.write_point(metric, resource, 22910638198436220000.0)
+    # client.write_point(metric, resource,
+    #   random.uniform(2291063819843622.0,22910638198436220000.0))
     # [END write_time_series]
 
+
+# def list_time_series():
+#     # [START list_time_series]
+#     client = monitoring.Client()
+#     metric = 'compute.googleapis.com/instance/cpu/utilization'
+#     query_results = client.query(metric, minutes=5)
+#     for result in query_results:
+#         print(result)
+#     # [END list_time_series]
 
 def list_time_series():
     # [START list_time_series]
     client = monitoring.Client()
-    metric = 'compute.googleapis.com/instance/cpu/utilization'
-    query_results = client.query(metric, minutes=5)
+    metric = 'custom.googleapis.com/my_metric'
+    query_results = client.query(metric, minutes=50)
     for result in query_results:
         print(result)
     # [END list_time_series]
-
 
 def list_time_series_header():
     # [START list_time_series_header]
